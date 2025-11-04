@@ -176,8 +176,6 @@ from collections import defaultdict
 # else:
 #     print('Congrats ! Your implementation works !')
 
-# 6
-
 
 
         
