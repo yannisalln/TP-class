@@ -18,7 +18,7 @@ class Student:
         return self.dic_grade.keys()
     
     def compute_average(self, topic: str) -> float:
-        if self.dic_grade[topic] == []:
+        if self.dic_grade[topic] == [] or topic not in self.dic_grade.keys():
             return -1
         else:
             G = 0
