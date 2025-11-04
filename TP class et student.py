@@ -82,13 +82,38 @@ class Student:
     def __init__(self, first_name: str, last_name: str):
         self.first_name = first_name
         self.last_name = last_name
-        self.dic_grade = {}
+        self.dic_grade = defaultdict(list)
 
     def __repr__(self):
         return(self.first_name + " " + self.last_name)
     
     def add_grade(self, topic: str, grade: float):
-        self.dic_grade[topic] = grade
+        if not (0 <= grade <= 20):
+            raise ValueError("Grade must be between 0 and 20.")
+        self.dic_grade[topic].append(grade)
     
     def followed_topics(self):
         return self.dic_grade.keys()
+    
+    def compute_average(self, topic: str):
+        if self.dic_grade[topic] == []:
+            return -1
+        else:
+            G = 0
+            for g in self.dic_grade[topic]:
+                G += g
+            return G/len(self.dic_grade[topic])
+
+try:
+    student = Student("Achille", "Talon")
+    student.add_grade("History", 10.)
+    student.add_grade("History", 12.)
+    if (student.compute_average("History") != 11.):
+        raise Exception("Issue in your average calculation.")
+    if (student.compute_average("French") != -1.):
+        raise Exception("If topic is not followed return -1")
+except Exception as e:
+    print('OOPS - There is an issue in your compute_average method.')
+    print(f"Error message : {e}")
+else:
+    print('Congrats ! Your implementation works !')   
